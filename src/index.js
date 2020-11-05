@@ -1,28 +1,16 @@
-const list = document.querySelector('#results');
+// The main concern of index.js is to be the entry point of your app
 
-const insertMovies = (data) => {
-  data.Search.forEach((result) => {
-    const movie = `<li>
-      <img src="${result.Poster}" alt="" />
-      <p>${result.Title}</p>
-    </li>`;
-    list.insertAdjacentHTML('beforeend', movie);
-  });
-};
+// Marie Kondo your JAVASCRIPT
+// 3 things only on Index.js
 
-const fetchMovies = (query) => {
-  fetch(`http://www.omdbapi.com/?s=${query}&apikey=adf1f2d7`)
-    .then(response => response.json())
-    .then(insertMovies);
-};
+// importings
+import { fetchMovies, callTheAPIAndUpdateDOM } from './movies';
+import { initSortable } from './plugins/init_sortable';
 
-
+// add event listeners
 const form = document.querySelector('#search-form');
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  list.innerHTML = '';
-  const input = document.querySelector('#search-input');
-  fetchMovies(input.value);
-});
+form.addEventListener('submit', callTheAPIAndUpdateDOM);
 
-fetchMovies('mad max'); // on 1st page load
+// call functions
+fetchMovies('harry potter'); // on 1st page load
+initSortable();
